@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/pgsql/data
+    expose:
+      - "5432"
+    env_file: api/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: api/.
+    env_file: api/.env
+    volumes:
+      - type: bind
+        source: api/
+        target: /usr/local/app/
+        read_only: true
+    depends_on:
+      db:
+        condition: service_healthy
+
+  proxy:
+    build: proxy/.
+    volumes:
+      - type: bind
+        source: ./proxy/nginx.conf
+        target: /etc/nginx/conf.d/default.config
+        read_only: true
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - db
+
+volumes:
+  db-data:

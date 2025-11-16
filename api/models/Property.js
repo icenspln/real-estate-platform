@@ -17,8 +17,16 @@ export default Property = sequelize.define("Property", {
     type: DataTypes.NUMBER,
     allowNull: false,
   },
-  surface_area_unite: {
+  surface_area_unit: {
     type: DataTypes.STRING(3),
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.NUMBER,
+    allowNull: false,
+  },
+  price_unit: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   country: {

@@ -1,1 +1,1 @@
-## Real Estate platform API
+## Real Estate platform

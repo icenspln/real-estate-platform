@@ -1,6 +1,7 @@
 import { debug, error } from "../helper.js";
 import { User } from "../models/User.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   try {
@@ -41,7 +42,15 @@ export const login = async (req, res, next) => {
         .json({ success: false, message: "Wrong credentials" });
     }
 
-    res.status(200).json({ success: true, message: "Login successful" });
+    // correct credentials
+    // generate token
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: 1000 * 60 * 60 }
+    );
+
+    res.status(200).json({ success: true, message: "Login successful", token });
   } catch (err) {
     next(err);
   }

@@ -3,5 +3,5 @@ WORKDIR /usr/local/app
 COPY package.json package-lock.json .
 RUN npm ci --production
 COPY . .
-CMD ["npm", "run", "dev", "--production"]
+CMD ["npm", "run", "start", "--production"]
 EXPOSE 3000

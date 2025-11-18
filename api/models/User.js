@@ -1,7 +1,7 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db.js");
 
-export const User = sequelize.define("User", {
+const User = sequelize.define("User", {
   firstName: {
     type: DataTypes.STRING(20),
     allowNull: false,
@@ -32,3 +32,5 @@ export const User = sequelize.define("User", {
 });
 
 User.sync({ force: true });
+
+module.exports = User;

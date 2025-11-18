@@ -1,6 +1,6 @@
-import { error } from "../helper.js";
+const { error } = require("../helper.js");
 
-export default (err, req, res, next) => {
+module.exports = (err, _req, res, _next) => {
   if (err) {
     error("Error middleware reached");
     error(err.message);

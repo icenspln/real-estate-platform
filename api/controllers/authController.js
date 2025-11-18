@@ -1,9 +1,8 @@
-import { debug, error } from "../helper.js";
-import { User } from "../models/User.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+const User = require("../models/User.js");
+const bcrypt = require("bcryptjs");
+const JWT = require("jsonwebtoken");
 
-export const signup = async (req, res, next) => {
+const signup = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
 
@@ -21,7 +20,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
 
@@ -44,7 +43,7 @@ export const login = async (req, res, next) => {
 
     // correct credentials
     // generate token
-    const token = jwt.sign(
+    const token = JWT.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: 1000 * 60 * 60 }
@@ -55,3 +54,5 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports = { login, signup };

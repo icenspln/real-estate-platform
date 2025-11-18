@@ -1,6 +1,6 @@
-import { error, logg } from "./helper.js";
-import app from "./app.js";
-import { initDatabase } from "./config/db.js";
+const { error, logg } = require("./helper.js");
+const app = require("./app.js");
+const { initDatabase } = require("./config/db.js");
 
 const main = async () => {
   await initDatabase();

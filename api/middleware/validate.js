@@ -1,7 +1,7 @@
-import { ZodError } from "zod";
-import { debug } from "../helper.js";
+const { ZodError } = require("zod");
+const { debug } = require("../helper.js");
 
-export default (schema) => (req, res, next) => {
+const validate = (schema) => (req, res, next) => {
   try {
     const parsedPayload = schema.parse(req.body);
     // const result = schema.parse({
@@ -26,3 +26,5 @@ export default (schema) => (req, res, next) => {
     next(err);
   }
 };
+
+module.exports = validate;

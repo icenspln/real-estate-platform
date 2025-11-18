@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
@@ -23,6 +23,9 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
     "nodemon": "^3.1.11"
   }
 }

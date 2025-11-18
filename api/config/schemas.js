@@ -1,6 +1,6 @@
-import * as z from "zod";
+const z = require("zod");
 
-export const authSignupSchema = z.object({
+const authSignupSchema = z.object({
   firstName: z.string().max(20),
   lastName: z.string().max(20),
   username: z.string().max(40).optional(), // username is optional
@@ -9,7 +9,9 @@ export const authSignupSchema = z.object({
   password: z.string(),
 });
 
-export const authLoginSchema = z.object({
+const authLoginSchema = z.object({
   email: z.email().max(40),
   password: z.string(),
 });
+
+module.exports = { authLoginSchema, authSignupSchema };

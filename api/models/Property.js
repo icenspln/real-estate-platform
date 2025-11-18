@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
-import Image from "./Image.js";
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db.js");
+const { Image } = require("./Image.js");
 
-export default Property = sequelize.define("Property", {
+const Property = sequelize.define("Property", {
   type: {
     type: DataTypes.STRING(50),
     allowNull: false,
@@ -62,6 +62,8 @@ export default Property = sequelize.define("Property", {
   },
 });
 
-Propery.hasMany(Image);
+Property.hasMany(Image);
 
 Property.sync();
+
+module.exports = Property;

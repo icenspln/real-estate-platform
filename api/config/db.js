@@ -1,5 +1,5 @@
-import Sequelize from "sequelize";
-import { logg, error } from "../helper.js";
+const Sequelize = require("sequelize");
+const { logg, error } = require("../helper.js");
 
 const sequelize = new Sequelize(process.env.DB_URI);
 
@@ -13,4 +13,4 @@ const initDatabase = async () => {
   }
 };
 
-export { initDatabase, sequelize };
+module.exports = { initDatabase, sequelize };

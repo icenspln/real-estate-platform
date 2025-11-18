@@ -1,4 +1,4 @@
-import JWT from "jsonwebtoken";
+const JWT = require("jsonwebtoken");
 
 /* 
     logic:
@@ -6,7 +6,7 @@ import JWT from "jsonwebtoken";
     if the server knows who you are (aka authenticated) AND believes who you claim to be but your current identity is not previliged enough for the request -> 403 forbidden
 */
 
-export default function authorization(req, res, next) {
+function authorization(req, res, next) {
   try {
     const token = req.header("Authorization");
     let jwt;
@@ -37,3 +37,5 @@ export default function authorization(req, res, next) {
     next(err);
   }
 }
+
+module.exports = authorization;

@@ -5,7 +5,7 @@ const initModels = require("./models/index.js");
 const createApp = require("./app.js");
 
 const main = async () => {
-  const sequelize = initDatabase(process.env.DB_URI);
+  const sequelize = initDatabase({ DB_URI: process.env.DB_URI });
   const models = initModels(sequelize);
 
   await sequelize.authenticate();

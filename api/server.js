@@ -1,11 +1,18 @@
+const http = require("node:http");
 const { error, logg } = require("./helper.js");
-const app = require("./app.js");
 const { initDatabase } = require("./config/db.js");
+const initModels = require("./models/index.js");
+const createApp = require("./app.js");
 
 const main = async () => {
-  await initDatabase();
+  const sequelize = initDatabase(process.env.DB_URI);
+  const models = initModels(sequelize);
 
-  app.listen(process.env.PORT, process.env.HOST, () => {
+  await sequelize.authenticate();
+  await sequelize.sync({ force: true });
+
+  const app = createApp({ sequelize, models });
+  http.createServer(app).listen(process.env.PORT, process.env.HOST, () => {
     logg(`server is listening on port ${process.env.PORT}`);
   });
 };

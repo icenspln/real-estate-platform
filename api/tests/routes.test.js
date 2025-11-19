@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
-describe("testing routes", () => {
-  test("test", () => {});
+describe("testing API end points", () => {
+  test("testtest", () => expect(1 + 1).toEqual(2));
 });

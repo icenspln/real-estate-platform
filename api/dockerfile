@@ -4,13 +4,8 @@ WORKDIR /usr/local/app
 COPY package*.json .
 RUN npm ci 
 
-# TEST stage
-FROM base AS test
-COPY . .
-CMD ["npm", "test"]
-
 # PROD stage
-FROM node:22 AS prod
+FROM base AS prod
 WORKDIR /usr/local/app
 COPY package*.json .
 RUN npm install --omit=dev

@@ -1,16 +1,17 @@
 const Sequelize = require("sequelize");
 const { logg, error } = require("../helper.js");
 
-const sequelize = new Sequelize(process.env.DB_URI);
-
-const initDatabase = async () => {
+// initialize a new connection on call (not on load)
+const initDatabase = (DB_URI) => {
   try {
-    await sequelize.authenticate();
-    logg("DB connection Successful");
+    const sequelize = new Sequelize(DB_URI);
+    logg("DB initialization success");
+    return sequelize;
   } catch (err) {
-    error("DB connection Failed");
+    error("DB initialization fail");
     error(err.message);
+    throw new Error("DB initialization fail");
   }
 };
 
-module.exports = { initDatabase, sequelize };
+module.exports = { initDatabase };

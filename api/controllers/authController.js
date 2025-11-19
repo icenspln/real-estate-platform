@@ -1,8 +1,7 @@
-const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
 
-const signup = async (req, res, next) => {
+const signup = (User) => async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
 
@@ -20,7 +19,7 @@ const signup = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const login = (User) => async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
 

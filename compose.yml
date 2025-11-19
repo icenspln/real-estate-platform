@@ -23,20 +23,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  api_test:
-    build:
-      context: api/.
-      target: test # test image
-    env_file: api/.env
-    volumes:
-      - type: bind
-        source: api/
-        target: /usr/local/app/
-        read_only: true
-    depends_on:
-      db:
-        condition: service_healthy
-    profiles: ["test"]
 
   proxy:
     build: proxy/.

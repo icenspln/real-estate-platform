@@ -1,4 +1,5 @@
-// this route controller is only enabled once, if the admin token exists in the env
+// this route controller is only enabled once,
+// if the admin token exists in the env & there are no admins
 
 const { logg, error } = require("../helper");
 const bcrypt = require("bcryptjs");

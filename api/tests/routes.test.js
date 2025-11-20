@@ -2,6 +2,7 @@
 const request = require("supertest");
 const setupTestDB = require("./setupTestDB");
 const createApp = require("../app");
+const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
 let sequelize, models, app;
@@ -53,13 +54,19 @@ describe("testing API /auth", () => {
     expect(res.statusCode).toEqual(201);
   });
 
-  test("should loging", async () => {
+  test("should loging as guest", async () => {
     const res = await request(app).post("/auth/login").send({
       email: "sendmespamplease1@homelone.me",
       password: "guest123",
     });
+
     expect(res.statusCode).toEqual(200);
     expect(res.body.token).toBeTruthy();
+
+    const decoded = JWT.decode(res.body.token);
+
+    expect(res.body.token).toBeTruthy();
+    expect(decoded.role).toEqual("guest");
   });
 });
 
@@ -104,5 +111,20 @@ describe("testing API /bootstrap", () => {
         password: "guest123",
       });
     expect(res.statusCode).toEqual(403);
+  });
+
+  test("should loging as admin", async () => {
+    const res = await request(app).post("/auth/login").send({
+      email: "newadminlikeemail@privatelife.lol",
+      password: "guest123",
+    });
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.token).toBeTruthy();
+
+    const decoded = JWT.decode(res.body.token);
+
+    expect(res.body.token).toBeTruthy();
+    expect(decoded.role).toEqual("admin");
   });
 });

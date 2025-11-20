@@ -3,6 +3,7 @@ const { error, logg } = require("./helper.js");
 const { initDatabase } = require("./config/db.js");
 const initModels = require("./models/index.js");
 const createApp = require("./app.js");
+require("dotenv").config();
 
 const main = async () => {
   const sequelize = initDatabase({ DB_URI: process.env.DB_URI });

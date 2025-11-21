@@ -6,7 +6,7 @@ module.exports = (requiredPermissions) => (req, res, next) => {
     const role = req.user.role;
     if (
       !roles[role] ||
-      !requiredPermissions.every((perm) => roles[role].include(perm))
+      !requiredPermissions.every((perm) => roles[role].includes(perm))
     ) {
       return res.status(403).json({ success: false, message: "Forbidden" });
     }

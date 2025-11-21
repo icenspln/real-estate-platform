@@ -1,11 +1,20 @@
 const z = require("zod");
 
+const adminSignup = z.object({
+  firstName: z.string().max(20),
+  lastName: z.string().max(20),
+  username: z.string().max(40).optional(), // username is optional
+  email: z.email().max(40),
+  role: z.enum(["admin"]),
+  password: z.string(),
+});
+
 const authSignupSchema = z.object({
   firstName: z.string().max(20),
   lastName: z.string().max(20),
   username: z.string().max(40).optional(), // username is optional
   email: z.email().max(40),
-  role: z.enum(["guest", "agent", "admin"]),
+  role: z.enum(["guest", "agent"]),
   password: z.string(),
 });
 
@@ -14,4 +23,4 @@ const authLoginSchema = z.object({
   password: z.string(),
 });
 
-module.exports = { authLoginSchema, authSignupSchema };
+module.exports = { authLoginSchema, authSignupSchema, adminSignup };

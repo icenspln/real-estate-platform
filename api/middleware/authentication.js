@@ -30,7 +30,7 @@ function authentication(req, res, next) {
           .status(401)
           .json({ success: false, message: "Unauthenticated" });
       }
-      req.decoded = decoded;
+      req.user = decoded;
       next();
     });
   } catch (err) {

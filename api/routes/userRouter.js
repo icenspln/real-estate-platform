@@ -6,17 +6,27 @@ const {
   getOneUser,
   updateUser,
   deleteUser,
+  createUser,
 } = require("../controllers/userController");
+const { userCreation } = require("../config/ValidationSchemas");
+const validate = require("../middleware/validate.js");
 
 // router to for user resource CRUD
 module.exports = ({ User }) => {
   const router = express.Router();
 
-  router.post("/create", authentication, RBAC(["create_user"]));
+  router.post(
+    "/create",
+    authentication,
+    RBAC(["create_user"]),
+    validate(userCreation),
+    createUser(User)
+  );
 
   router.get("/", authentication, RBAC(["read_user"]), getUsers(User));
 
   router.get("/:id", authentication, RBAC(["read_user"]), getOneUser(User));
+
   router.put("/:id", authentication, RBAC(["update_user"]), updateUser(User));
   router.delete(
     "/:id",

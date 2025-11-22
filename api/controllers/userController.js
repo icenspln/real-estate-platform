@@ -1,4 +1,33 @@
 const { error } = require("../helper");
+const bcrypt = require("bcryptjs");
+
+const createUser = (User) => async (req, res, next) => {
+  try {
+    // validated body
+    const { firstName, lastName, username, email, role, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+    if (user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User email already in use" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    await User.create({
+      firstName,
+      lastName,
+      username,
+      email,
+      role,
+      password: hash,
+    });
+    res.status(201).json({ success: true, message: "User created" });
+  } catch (err) {
+    error(err.message);
+    next(err);
+  }
+};
 
 const getUsers = (User) => async (req, res, next) => {
   try {
@@ -47,9 +76,10 @@ const updateUser = (User) => async (req, res, next) => {
         .json({ success: false, message: "User not found" });
     }
 
-    user.set({ firstName, lastName, username, email, password });
+    const hash = await bcrypt.hash(password, 10);
+    user.set({ firstName, lastName, username, email, password: hash });
     await user.save();
-    return res.status(200).json({ success: true, user });
+    return res.status(200).json({ success: true, message: "User updated" });
   } catch (err) {
     error(err.message);
     next(err);
@@ -77,4 +107,4 @@ const deleteUser = (User) => async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, getOneUser, updateUser, deleteUser };
+module.exports = { getUsers, getOneUser, updateUser, deleteUser, createUser };

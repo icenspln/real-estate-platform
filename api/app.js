@@ -3,6 +3,7 @@ const errorHandler = require("./middleware/error.js");
 const authRouter = require("./routes/authRouter.js");
 const bootstrapRouter = require("./routes/bootstrapRouter.js");
 const userRouter = require("./routes/userRouter.js");
+const propertyRouter = require("./routes/propertyRouter.js");
 
 const createApp = ({ _sequelize, models }) => {
   const app = express();
@@ -14,6 +15,7 @@ const createApp = ({ _sequelize, models }) => {
   app.use("/bootstrap", bootstrapRouter(models));
   app.use("/auth", authRouter(models));
   app.use("/user", userRouter(models));
+  app.use("/property", propertyRouter(models));
 
   // error handler
   app.use(errorHandler);

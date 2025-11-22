@@ -1,5 +1,39 @@
 const z = require("zod");
 
+const propertyCreation = z.object({
+  type: z.string().max(50),
+  quantity: z.number(),
+  surface_area: z.number(),
+  surface_area_unit: z.string().max(3),
+  price: z.number(),
+  price_unit: z.string(),
+  country: z.string().max(20),
+  state: z.string().max(20),
+  district: z.string().max(20),
+  address: z.string().max(255),
+  description: z.string(),
+  status: z.enum(["available", "sold", "pending"]),
+  published: z.boolean(),
+});
+
+const propertyUpdate = z
+  .object({
+    type: z.string().max(50),
+    quantity: z.number(),
+    surface_area: z.number(),
+    surface_area_unit: z.string().max(3),
+    price: z.number(),
+    price_unit: z.string(),
+    country: z.string().max(20),
+    state: z.string().max(20),
+    district: z.string().max(20),
+    address: z.string().max(255),
+    description: z.string(),
+    status: z.enum(["available", "sold", "pending"]),
+    published: z.boolean(),
+  })
+  .partial();
+
 const userCreation = z.object({
   firstName: z.string().max(20),
   lastName: z.string().max(20),
@@ -37,4 +71,6 @@ module.exports = {
   authSignupSchema,
   adminSignup,
   userCreation,
+  propertyCreation,
+  propertyUpdate,
 };

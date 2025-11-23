@@ -4,6 +4,7 @@ const authRouter = require("./routes/authRouter.js");
 const bootstrapRouter = require("./routes/bootstrapRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const propertyRouter = require("./routes/propertyRouter.js");
+const uploadRouter = require("./routes/uploadRouter.js");
 
 const createApp = ({ _sequelize, models }) => {
   const app = express();
@@ -16,6 +17,7 @@ const createApp = ({ _sequelize, models }) => {
   app.use("/auth", authRouter(models));
   app.use("/user", userRouter(models));
   app.use("/property", propertyRouter(models));
+  app.use("/upload", uploadRouter(models));
 
   // error handler
   app.use(errorHandler);

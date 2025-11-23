@@ -8,7 +8,7 @@ const {
   deleteUser,
   createUser,
 } = require("../controllers/userController");
-const { userCreation } = require("../config/ValidationSchemas");
+const { userCreation } = require("../config/validationSchemas");
 const validate = require("../middleware/validate.js");
 
 // router to for user resource CRUD

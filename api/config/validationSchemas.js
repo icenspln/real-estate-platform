@@ -1,5 +1,6 @@
 const z = require("zod");
 
+const imageCreation = z.file();
 const propertyCreation = z.object({
   type: z.string().max(50),
   quantity: z.number(),
@@ -73,4 +74,5 @@ module.exports = {
   userCreation,
   propertyCreation,
   propertyUpdate,
+  imageCreation,
 };

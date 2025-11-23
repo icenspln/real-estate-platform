@@ -5,7 +5,7 @@ const validate = require("../middleware/validate");
 const {
   propertyCreation,
   propertyUpdate,
-} = require("../config/ValidationSchemas");
+} = require("../config/validationSchemas");
 const {
   createProperty,
   getAllProperties,

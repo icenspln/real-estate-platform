@@ -3,7 +3,7 @@ const validate = require("../middleware/validate.js");
 const {
   authLoginSchema,
   authSignupSchema,
-} = require("../config/ValidationSchemas.js");
+} = require("../config/validationSchemas.js");
 const { login, signup } = require("../controllers/authController.js");
 
 module.exports = function ({ User }) {

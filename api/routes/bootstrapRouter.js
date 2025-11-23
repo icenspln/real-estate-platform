@@ -1,5 +1,5 @@
 const express = require("express");
-const { adminSignup } = require("../config/ValidationSchemas");
+const { adminSignup } = require("../config/validationSchemas");
 const validate = require("../middleware/validate");
 const bootstrapController = require("../controllers/bootstrapController");
 

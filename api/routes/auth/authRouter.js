@@ -1,10 +1,10 @@
 const express = require("express");
-const validate = require("../middleware/validate.js");
+const validate = require("../../middleware/validate.js");
 const {
   authLoginSchema,
   authSignupSchema,
-} = require("../config/validationSchemas.js");
-const { login, signup } = require("../controllers/authController.js");
+} = require("../../config/validationSchemas.js");
+const { login, signup } = require("../../controllers/authController.js");
 
 module.exports = function ({ User }) {
   const router = express.Router();

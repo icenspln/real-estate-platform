@@ -1,18 +1,19 @@
 const express = require("express");
-const authentication = require("../middleware/authentication");
-const RBAC = require("../middleware/RBACmiddleware");
-const validate = require("../middleware/validate");
+const authentication = require("../../middleware/authentication");
+const RBAC = require("../../middleware/RBACmiddleware");
+const validate = require("../../middleware/validate");
 const {
   propertyCreation,
   propertyUpdate,
-} = require("../config/validationSchemas");
+} = require("../../config/validationSchemas");
 const {
   createProperty,
   getAllProperties,
   getProperty,
   updateProperty,
   deleteProperty,
-} = require("../controllers/propertyController");
+} = require("../../controllers/propertyController");
+const adminPerms = require("../../config/roles").admin;
 
 module.exports = function ({ Property, Image }) {
   const router = express.Router();
@@ -20,33 +21,28 @@ module.exports = function ({ Property, Image }) {
   router.post(
     "/create",
     authentication,
-    RBAC(["create_property"]),
+    RBAC(adminPerms),
     validate(propertyCreation),
     createProperty(Property)
   );
   router.get(
     "/",
     authentication,
-    RBAC(["read_property"]),
+    RBAC(adminPerms),
     getAllProperties({ Property, Image })
   );
-  router.get(
-    "/:id",
-    authentication,
-    RBAC(["read_property"]),
-    getProperty(Property)
-  );
+  router.get("/:id", authentication, RBAC(adminPerms), getProperty(Property));
   router.put(
     "/:id",
     authentication,
-    RBAC(["update_property"]),
+    RBAC(adminPerms),
     validate(propertyUpdate),
     updateProperty(Property)
   );
   router.delete(
     "/:id",
     authentication,
-    RBAC(["delete_property"]),
+    RBAC(adminPerms),
     deleteProperty(Property)
   );
   return router;

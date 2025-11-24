@@ -1,22 +1,36 @@
-const { error, debug } = require("../helper");
-const fs = require("node:fs/promises");
+const { error } = require("../helper");
 
-module.exports = function uploadImage(_Image) {
-  // function writes
+module.exports = function uploadImage(Image) {
   return async (req, res, next) => {
     try {
-      // test write
-      const filename = "test";
-      const fileExtension = "css";
-      const content = "another content!";
-      debug(process.env.STATIC_DIR);
-      await fs.writeFile(
-        `${process.env.STATIC_DIR}/${filename}.${fileExtension}`,
-        content,
-        {
-          flag: "w+",
-        }
-      );
+      const { files } = req;
+
+      let pathArr = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const {
+          originalname,
+          encoding,
+          mimetype,
+          destination,
+          filename,
+          path,
+          size,
+        } = files[i];
+
+        const image = await Image.create({
+          fileName: filename,
+          originalName: originalname,
+          mimeType: mimetype,
+          encoding,
+          destination,
+          path,
+          size,
+        });
+        pathArr.push(process.env.HOST_URL + "/" + image.path);
+      }
+
+      res.status(201).json({ success: true, images: pathArr });
     } catch (err) {
       error(err.message);
       next(err);

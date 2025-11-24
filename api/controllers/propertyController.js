@@ -9,15 +9,17 @@ const createProperty = (Property) => async (req, res, next) => {
     next(err);
   }
 };
-const getAllProperties = (Property) => async (req, res, next) => {
-  try {
-    const properties = await Property.findAll();
-    res.status(200).json({ success: true, properties });
-  } catch (err) {
-    error(err.message);
-    next(err);
-  }
-};
+const getAllProperties =
+  ({ Property, _Image }) =>
+  async (req, res, next) => {
+    try {
+      const properties = await Property.findAll();
+      res.status(200).json({ success: true, properties });
+    } catch (err) {
+      error(err.message);
+      next(err);
+    }
+  };
 
 const getProperty = (Property) => async (req, res, next) => {
   try {

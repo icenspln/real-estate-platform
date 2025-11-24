@@ -11,7 +11,14 @@ module.exports = function initModels(sequelize) {
   };
 
   // associations
-  models.Property.hasMany(models.Image);
+  models.User.hasMany(models.Property, {
+    onDelete: "CASCADE",
+  });
+  models.Property.belongsTo(models.User);
+
+  models.Property.hasMany(models.Image, {
+    onDelete: "CASCADE",
+  });
   models.Image.belongsTo(models.Property);
 
   return models;

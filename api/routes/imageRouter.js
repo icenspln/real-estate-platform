@@ -1,18 +1,18 @@
 const express = require("express");
 const authentication = require("../middleware/authentication");
 const RBAC = require("../middleware/RBACmiddleware");
-const uploadImage = require("../controllers/imageController");
+const createImage = require("../controllers/imageController");
 const uploadMiddleware = require("../middleware/uploadMiddleware");
 
-module.exports = function ({ Image }) {
+module.exports = function ({ Image, Property }) {
   const router = express.Router();
 
   router.post(
-    "/",
+    "/create",
     authentication,
     RBAC(["create_image"]),
     uploadMiddleware,
-    uploadImage(Image)
+    createImage({ Image, Property })
   );
 
   return router;

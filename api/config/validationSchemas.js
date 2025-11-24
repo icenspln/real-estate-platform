@@ -1,6 +1,8 @@
 const z = require("zod");
 
-const imageCreation = z.file();
+const imageCreation = z.object({
+  photos: z.array(z.file()),
+});
 const propertyCreation = z.object({
   type: z.string().max(50),
   quantity: z.number(),
@@ -49,7 +51,7 @@ const adminSignup = z.object({
   lastName: z.string().max(20),
   username: z.string().max(40).optional(), // username is optional
   email: z.email().max(40),
-  role: z.enum(["admin"]),
+  role: z.literal("admin"),
   password: z.string(),
 });
 

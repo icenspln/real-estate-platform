@@ -14,7 +14,7 @@ const {
   deleteProperty,
 } = require("../controllers/propertyController");
 
-module.exports = function ({ Property }) {
+module.exports = function ({ Property, Image }) {
   const router = express.Router();
 
   router.post(
@@ -28,7 +28,7 @@ module.exports = function ({ Property }) {
     "/",
     authentication,
     RBAC(["read_property"]),
-    getAllProperties(Property)
+    getAllProperties({ Property, Image })
   );
   router.get(
     "/:id",

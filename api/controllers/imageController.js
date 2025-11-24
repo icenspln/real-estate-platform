@@ -1,9 +1,12 @@
 const { error } = require("../helper");
 
-module.exports = function uploadImage(Image) {
+module.exports = function createImage({ Image, Property }) {
   return async (req, res, next) => {
     try {
-      const { files } = req;
+      const {
+        files,
+        body: { propertyId },
+      } = req;
 
       let pathArr = [];
 
@@ -27,6 +30,15 @@ module.exports = function uploadImage(Image) {
           path,
           size,
         });
+
+        if (propertyId) {
+          // fetch property and associte it with this image;
+          const property = await Property.findByPk(propertyId);
+          if (property) {
+            await image.setProperty(property);
+          }
+        }
+
         pathArr.push(process.env.HOST_URL + "/" + image.path);
       }
 

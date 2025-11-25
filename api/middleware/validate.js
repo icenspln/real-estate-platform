@@ -1,9 +1,8 @@
 const { ZodError } = require("zod");
-const { logg, debug } = require("../helper.js");
+const { logg } = require("../helper.js");
 
 const validate = (schema) => (req, res, next) => {
   try {
-    debug(req.body);
     const parsedPayload = schema.parse(req.body);
     // const result = schema.parse({
     //   body: req.body,

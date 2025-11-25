@@ -107,4 +107,75 @@ const deleteUser = (User) => async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, getOneUser, updateUser, deleteUser, createUser };
+const getProfile = (User) => async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ["password"] },
+    });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+    res.status(200).json({ success: true, user });
+  } catch (err) {
+    error(err.message);
+    next(err);
+  }
+};
+
+const updateProfile = (User) => async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    if (req.body.password) {
+      const hash = await bcrypt.hash(req.body.password, 10);
+      user.set({ ...req.body, password: hash });
+    } else {
+      user.set(req.body);
+    }
+
+    await user.save();
+    res.status(200).json({ success: true, message: "User updated" });
+  } catch (err) {
+    error(err.message);
+    next(err);
+  }
+};
+
+const deleteProfile = (User) => async (req, res, next) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    await user.destroy();
+    res.status(200).json({ success: true, message: "User deleted" });
+  } catch (err) {
+    error(err.message);
+    next(err);
+  }
+};
+module.exports = {
+  getUsers,
+  getOneUser,
+  updateUser,
+  deleteUser,
+  createUser,
+  getProfile,
+  updateProfile,
+  deleteProfile,
+};

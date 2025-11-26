@@ -13,6 +13,9 @@ module.exports = {
     "read_image",
     "update_image",
     "delete_image",
+    "create_own_image",
+    "update_own_image",
+    "delete_own_image",
     "create_property",
     "create_own_property",
     "update_own_property",
@@ -22,7 +25,6 @@ module.exports = {
     "delete_property",
   ],
   agent: [
-    "create_image",
     "read_property",
     "create_own_property",
     "update_own_property",
@@ -30,6 +32,9 @@ module.exports = {
     "read_own_user",
     "update_own_user",
     "delete_own_user",
+    "create_own_image",
+    "update_own_image",
+    "delete_own_image",
   ],
   guest: [
     "read_property",

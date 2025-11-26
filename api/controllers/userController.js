@@ -75,9 +75,11 @@ const updateUser = (User) => async (req, res, next) => {
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-
-    const hash = await bcrypt.hash(password, 10);
-    user.set({ firstName, lastName, username, email, password: hash });
+    if (password) {
+      const hash = await bcrypt.hash(password, 10);
+      user.set({ firstName, lastName, username, email, password: hash });
+    }
+    user.set({ firstName, lastName, username, email });
     await user.save();
     return res.status(200).json({ success: true, message: "User updated" });
   } catch (err) {

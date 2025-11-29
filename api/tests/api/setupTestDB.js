@@ -1,5 +1,5 @@
-const { initDatabase } = require("../config/db");
-const initModels = require("../models/index");
+const { initDatabase } = require("../../config/db");
+const initModels = require("../../models/index");
 
 module.exports = async () => {
   const sequelize = initDatabase({

@@ -5,12 +5,14 @@ const bootstrapRouter = require("./routes/bootstrapRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const propertyRouter = require("./routes/propertyRouter.js");
 const imageRouter = require("./routes/imageRouter.js");
+const cookieParser = require("cookie-parser");
 
 const createApp = ({ _sequelize, models }) => {
   const app = express();
 
   // middleware
   app.use(express.json());
+  app.use(cookieParser());
 
   // routes
   app.use("/bootstrap", bootstrapRouter(models));

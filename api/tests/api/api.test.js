@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const request = require("supertest");
 const setupTestDB = require("./setupTestDB");
-const createApp = require("../app");
+const createApp = require("../../app");
 const JWT = require("jsonwebtoken");
 require("dotenv").config();
 

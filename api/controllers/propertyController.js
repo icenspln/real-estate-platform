@@ -1,4 +1,4 @@
-const { error } = require("../helper");
+const { error } = require("../utils/helper");
 
 const createProperty =
   ({ Property, User }) =>

@@ -1,5 +1,5 @@
 const { ZodError } = require("zod");
-const { logg } = require("../helper.js");
+const { logg } = require("../utils/helper.js");
 
 const validate = (schema) => (req, res, next) => {
   try {

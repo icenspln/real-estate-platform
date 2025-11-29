@@ -1,7 +1,7 @@
 // this route controller is only enabled once,
 // if the admin token exists in the env & there are no admins
 
-const { logg, error } = require("../helper");
+const { logg, error } = require("../utils/helper");
 const bcrypt = require("bcryptjs");
 
 module.exports = (User) => async (req, res, next) => {

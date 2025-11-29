@@ -1,4 +1,4 @@
-const { error } = require("../helper.js");
+const { error } = require("../utils/helper.js");
 const roles = require("../config/roles.js");
 
 module.exports = (requiredPermissions) => (req, res, next) => {

@@ -1,4 +1,4 @@
-const { error } = require("../helper");
+const { error } = require("../utils/helper");
 
 function createImage({ Image, Property }) {
   return async (req, res, next) => {

@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { logg, error } = require("../helper.js");
+const { logg, error } = require("../utils/helper.js");
 
 // initialize a new connection on call (not on load)
 const initDatabase = (dbConf) => {

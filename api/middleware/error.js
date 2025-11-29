@@ -1,4 +1,4 @@
-const { error } = require("../helper.js");
+const { error } = require("../utils/helper.js");
 
 module.exports = (err, _req, res, _next) => {
   if (err) {

@@ -149,4 +149,25 @@ const refresh =
     }
   };
 
-module.exports = { login, signup, refresh };
+const logout =
+  ({ RefreshToken }) =>
+  async (req, res, next) => {
+    try {
+      const tokens = await RefreshToken.findAll({
+        where: { UserId: req.user.userId, revokedAt: null },
+      });
+
+      if (tokens.length > 0) {
+        for (let i = 0; i < tokens.length; ++i) {
+          tokens[i].set({ revokedAt: new Date() });
+          await tokens[i].save();
+        }
+      }
+
+      res.clearCookie("rt", { path: "/api/auth/refresh" });
+      res.json({ success: true, message: "Logged out" });
+    } catch (err) {
+      next(err);
+    }
+  };
+module.exports = { login, signup, refresh, logout };

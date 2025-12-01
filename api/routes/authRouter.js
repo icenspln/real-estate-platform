@@ -4,7 +4,13 @@ const {
   authLoginSchema,
   authSignupSchema,
 } = require("../config/validationSchemas.js");
-const { login, signup, refresh } = require("../controllers/authController.js");
+const {
+  login,
+  signup,
+  refresh,
+  logout,
+} = require("../controllers/authController.js");
+const authentication = require("../middleware/authentication.js");
 
 module.exports = function ({ User, RefreshToken }) {
   const router = express.Router();
@@ -20,5 +26,6 @@ module.exports = function ({ User, RefreshToken }) {
     login({ User, RefreshToken })
   );
   router.get("/refresh", refresh({ User, RefreshToken }));
+  router.get("/logout", authentication, logout({ RefreshToken, User }));
   return router;
 };

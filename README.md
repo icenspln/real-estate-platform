@@ -15,8 +15,8 @@ The goal is basic, to allow users with the "agent" role to create, manage and pu
 - proxied api (nginx)
 
 #### Overview
+<img width="701" height="436" alt="overview" src="https://github.com/user-attachments/assets/c6221f29-812c-4546-a68a-5767ba135251" />
 
-[!overview ](overview.png)
 
 #### Start
 
